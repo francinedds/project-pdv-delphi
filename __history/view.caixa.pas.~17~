@@ -1,0 +1,44 @@
+unit view.caixa;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, view.base.listas, Data.DB, Vcl.Grids,
+  Vcl.DBGrids, Vcl.StdCtrls, Vcl.WinXCtrls, Vcl.WinXPanels, Vcl.Buttons,
+  Vcl.ExtCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, service.cadastro, provider.constants;
+
+type
+  TViewCaixa = class(TViewBaseListas)
+    procedure FormShow(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  ViewCaixa: TViewCaixa;
+
+implementation
+
+{$R *.dfm}
+
+
+procedure TViewCaixa.FormCreate(Sender: TObject);
+begin
+  inherited;
+  dsDados.DataSet := ServiceCadastro.FDQuery_abrecaixa;
+end;
+
+procedure TViewCaixa.FormShow(Sender: TObject);
+begin
+  inherited;
+  GET_Caixa;
+end;
+
+end.

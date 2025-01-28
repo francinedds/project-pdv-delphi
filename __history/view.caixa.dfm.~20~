@@ -1,0 +1,78 @@
+inherited ViewCaixa: TViewCaixa
+  Caption = 'ViewCaixa'
+  OnCreate = nil
+  TextHeight = 15
+  inherited pnlTopo: TPanel
+    inherited pnlTitulo: TPanel
+      inherited lblTitulo: TLabel
+        Width = 34
+        Height = 16
+        Caption = 'Caixa'
+        Font.Height = -13
+        ExplicitWidth = 34
+        ExplicitHeight = 16
+      end
+    end
+  end
+  inherited pnlBackground: TPanel
+    inherited CardPanel_conteudo: TCardPanel
+      inherited card_pesquisa: TCard
+        inherited DBGrid_lista: TDBGrid
+          Options = [dgEditing, dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+          ParentFont = False
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'ABR_CODIGO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_DATAABERTURA'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_HRAABERTURA'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_DATAFECHAMENTO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_HRAFECHAMENTO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_VLRINICIAL'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_VLRFINAL'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_CODIGOUSUARIO'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_STATUS'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_OBSERVACAO'
+              Visible = True
+            end>
+        end
+      end
+    end
+  end
+end

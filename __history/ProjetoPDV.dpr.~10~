@@ -1,0 +1,20 @@
+program ProjetoPDV;
+
+uses
+  Vcl.Forms,
+  view.principal in 'view.principal.pas' {ViewPrincipal},
+  service.conexao in 'service.conexao.pas' {ServiceConexao: TDataModule},
+  view.base in 'view.base.pas' {ViewBase},
+  view.base.listas in 'view.base.listas.pas' {ViewBaseListas},
+  view.caixa in 'view.caixa.pas' {ViewCaixa},
+  service.cadastro in 'service.cadastro.pas' {ServiceCadastro: TDataModule},
+  provider.constants in 'provider.constants.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TViewPrincipal, ViewPrincipal);
+  Application.Run;
+end.

@@ -1,0 +1,25 @@
+unit provider.functions;
+
+interface
+uses Vcl.Forms, System.SysUtils;
+
+procedure CriaForm(const AClasse: TCustomFormClass; out Form); // função para abrir formulários
+
+implementation
+
+procedure CriaForm(const AClasse: TCustomFormClass; out Form);
+var
+  MeuForm: TCustomForm absolute Form;
+begin
+  begin
+    if not Assigned(MeuForm) then
+    Application.CreateForm(AClasse, Form);
+    try
+      MeuForm.ShowModal;
+    finally
+      FreeAndNil(MeuForm);
+    end;
+  end;
+end;
+
+end.

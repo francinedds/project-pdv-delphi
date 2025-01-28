@@ -1,0 +1,148 @@
+inherited ViewCaixa: TViewCaixa
+  Caption = 'ViewCaixa'
+  OnCreate = nil
+  TextHeight = 15
+  inherited pnlTopo: TPanel
+    inherited pnlTitulo: TPanel
+      inherited lblTitulo: TLabel
+        Width = 34
+        Height = 16
+        Caption = 'Caixa'
+        Font.Height = -13
+        ExplicitWidth = 34
+        ExplicitHeight = 16
+      end
+    end
+  end
+  inherited pnlBackground: TPanel
+    inherited CardPanel_conteudo: TCardPanel
+      inherited card_pesquisa: TCard
+        inherited DBGrid_lista: TDBGrid
+          DataSource = dsDados
+          Options = [dgEditing, dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+          ParentFont = False
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'ABR_CODIGO'
+              Title.Caption = 'C'#211'DIGO'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = 6302000
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_DATAABERTURA'
+              Title.Caption = 'DATA ABERTURA'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = 6302000
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 124
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_HRAABERTURA'
+              Title.Caption = 'HORA ABERTURA'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = 6302000
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 129
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_DATAFECHAMENTO'
+              Title.Caption = 'DATA FECHAMENTO'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = 6302000
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 147
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_HRAFECHAMENTO'
+              Title.Caption = 'HORA FECHAMENTO'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = 6302000
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Width = 143
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_VLRINICIAL'
+              Title.Caption = 'VALOR INICIAL'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = 6302000
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_VLRFINAL'
+              Title.Caption = 'VALOR FINAL'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = 6302000
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_CODIGOUSUARIO'
+              Title.Caption = 'C'#211'DIGO USU'#193'RIO'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = 6302000
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_STATUS'
+              Title.Caption = 'STATUS'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = 6302000
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ABR_OBSERVACAO'
+              Title.Caption = 'OBSERVA'#199#195'O'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = 6302000
+              Title.Font.Height = -11
+              Title.Font.Name = 'Tahoma'
+              Title.Font.Style = [fsBold]
+              Visible = True
+            end>
+        end
+      end
+    end
+  end
+  object dsDados: TDataSource
+    DataSet = ServiceCadastro.FDQuery_abrecaixa
+    Left = 1035
+    Top = 58
+  end
+end

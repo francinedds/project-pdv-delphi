@@ -1,0 +1,50 @@
+unit service.cadastro;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, service.conexao;
+
+type
+  TServiceCadastro = class(TDataModule)
+    FDQuery_abrecaixa: TFDQuery;
+    FDQuery_abrecaixaABR_CODIGO: TIntegerField;
+    FDQuery_abrecaixaABR_DATAABERTURA: TDateField;
+    FDQuery_abrecaixaABR_HRAABERTURA: TTimeField;
+    FDQuery_abrecaixaABR_DATAFECHAMENTO: TDateField;
+    FDQuery_abrecaixaABR_HRAFECHAMENTO: TTimeField;
+    FDQuery_abrecaixaABR_VLRINICIAL: TFMTBCDField;
+    FDQuery_abrecaixaABR_VLRFINAL: TFMTBCDField;
+    FDQuery_abrecaixaABR_CODIGOUSUARIO: TSmallintField;
+    FDQuery_abrecaixaABR_STATUS: TStringField;
+    FDQuery_abrecaixaABR_OBSERVACAO: TStringField;
+  private
+    { Private declarations }
+  public
+    procedure GET_Caixa;
+  end;
+
+var
+  ServiceCadastro: TServiceCadastro;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+{ TServiceCadastro }
+
+procedure TServiceCadastro.GET_Caixa;
+begin
+  ServiceCadastro.FDQuery_abrecaixa.Close;
+  ServiceCadastro.FDQuery_abrecaixa.SQL.Clear;
+  ServiceCadastro.FDQuery_abrecaixa.SQL.add('select * from abrecaixa where abr_codigo =:codigo');
+
+  ServiceCadastro.FDQuery_abrecaixa.Open();
+end;
+
+end.
