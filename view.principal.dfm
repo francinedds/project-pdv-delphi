@@ -14,6 +14,8 @@ object ViewPrincipal: TViewPrincipal
   KeyPreview = True
   WindowState = wsMaximized
   OnKeyDown = FormKeyDown
+  OnResize = FormResize
+  OnShow = FormShow
   TextHeight = 15
   object pnlTopo: TPanel
     Left = 0
@@ -915,7 +917,7 @@ object ViewPrincipal: TViewPrincipal
         Font.Style = []
         ParentFont = False
         TabOrder = 0
-        Text = '500,00'
+        Text = '00,00'
       end
     end
     object pnlTituloProduto: TPanel
@@ -997,7 +999,6 @@ object ViewPrincipal: TViewPrincipal
         Height = 23
         Alignment = taRightJustify
         TabOrder = 0
-        Text = '10,00'
       end
       object edtQuantidade: TEdit
         Left = 58
@@ -1006,7 +1007,6 @@ object ViewPrincipal: TViewPrincipal
         Height = 23
         Alignment = taRightJustify
         TabOrder = 1
-        Text = '0'
       end
     end
     object edtCodigoBarras: TEdit
@@ -1022,7 +1022,7 @@ object ViewPrincipal: TViewPrincipal
       Font.Style = []
       ParentFont = False
       TabOrder = 3
-      Text = '00000000000'
+      OnExit = edtCodigoBarrasExit
     end
   end
   object pnlProdutos: TPanel
@@ -1089,7 +1089,7 @@ object ViewPrincipal: TViewPrincipal
           Font.Style = []
           ParentFont = False
           TabOrder = 0
-          Text = '500,00'
+          Text = '00,00'
         end
       end
     end
@@ -1100,7 +1100,7 @@ object ViewPrincipal: TViewPrincipal
       Height = 535
       Align = alClient
       BorderStyle = bsNone
-      DataSource = dsDados
+      DataSource = dsItens
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -12
@@ -1111,13 +1111,86 @@ object ViewPrincipal: TViewPrincipal
       TabOrder = 1
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowFrame
-      TitleFont.Height = -12
+      TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = [fsBold]
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'COD_ITEM'
+          Title.Caption = 'C'#211'DIGO DO ITEM'
+          Width = 101
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NOME_PRODUTO'
+          Title.Caption = 'PRODUTO'
+          Width = 72
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'QTD_PRODUTO'
+          Title.Caption = 'QUANTIDADE DO PRODUTO'
+          Width = 166
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'VLR_UNITARIO'
+          Title.Caption = 'VALOR UNIT'#193'RIO'
+          Width = 116
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'VLR_DESCONTO'
+          Title.Caption = 'VALOR DO DESCONTO'
+          Width = 137
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'VLR_TOTAL'
+          Title.Caption = 'VALOR TOTAL'
+          Width = 98
+          Visible = True
+        end>
     end
   end
-  object dsDados: TDataSource
-    Left = 1042
+  object dsItens: TDataSource
+    DataSet = FDMemTable_itens
+    Left = 1026
     Top = 157
+  end
+  object FDMemTable_itens: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 1026
+    Top = 229
+    object FDMemTable_itensCOD_ITEM: TIntegerField
+      FieldName = 'COD_ITEM'
+    end
+    object FDMemTable_itensNOME_PRODUTO: TStringField
+      FieldName = 'NOME_PRODUTO'
+    end
+    object FDMemTable_itensQTD_PRODUTO: TCurrencyField
+      FieldName = 'QTD_PRODUTO'
+    end
+    object FDMemTable_itensVLR_UNITARIO: TCurrencyField
+      FieldName = 'VLR_UNITARIO'
+    end
+    object FDMemTable_itensVLR_DESCONTO: TCurrencyField
+      FieldName = 'VLR_DESCONTO'
+    end
+    object FDMemTable_itensVLR_TOTAL: TCurrencyField
+      FieldName = 'VLR_TOTAL'
+    end
   end
 end
