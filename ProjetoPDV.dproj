@@ -100,34 +100,34 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="view.principal.pas">
+        <DCCReference Include="views\view.principal.pas">
             <Form>ViewPrincipal</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="service.conexao.pas">
+        <DCCReference Include="services\service.conexao.pas">
             <Form>ServiceConexao</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="view.base.pas">
+        <DCCReference Include="views\view.base.pas">
             <Form>ViewBase</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="view.base.listas.pas">
+        <DCCReference Include="views\view.base.listas.pas">
             <Form>ViewBaseListas</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="view.caixa.pas">
+        <DCCReference Include="views\view.caixa.pas">
             <Form>ViewCaixa</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="service.cadastro.pas">
+        <DCCReference Include="services\service.cadastro.pas">
             <Form>ServiceCadastro</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="provider.functions.pas"/>
-        <DCCReference Include="provider.variaveis.pas"/>
+        <DCCReference Include="providers\provider.functions.pas"/>
+        <DCCReference Include="providers\provider.variaveis.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

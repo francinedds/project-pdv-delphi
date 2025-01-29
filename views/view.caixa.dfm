@@ -30,8 +30,6 @@ inherited ViewCaixa: TViewCaixa
     inherited CardPanel_conteudo: TCardPanel
       ActiveCard = card_cadastro
       inherited card_cadastro: TCard
-        ExplicitLeft = -80
-        ExplicitTop = -29
         object Label5: TLabel [0]
           Left = 21
           Top = 176
