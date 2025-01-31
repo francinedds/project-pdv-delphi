@@ -14,6 +14,7 @@ object ViewPrincipal: TViewPrincipal
   KeyPreview = True
   WindowState = wsMaximized
   OnKeyDown = FormKeyDown
+  OnKeyPress = FormKeyPress
   OnResize = FormResize
   OnShow = FormShow
   TextHeight = 15
@@ -953,6 +954,7 @@ object ViewPrincipal: TViewPrincipal
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 2
+      ExplicitTop = 395
       object lblNomeProduto: TLabel
         Left = 168
         Top = 29
@@ -967,11 +969,11 @@ object ViewPrincipal: TViewPrincipal
         ParentFont = False
       end
       object lblTituloQuantidade: TLabel
-        Left = 74
+        Left = 58
         Top = 57
-        Width = 71
+        Width = 95
         Height = 14
-        Caption = 'Quantidade'
+        Caption = 'Quantidade [+]'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 5263440
         Font.Height = -12
@@ -1007,6 +1009,8 @@ object ViewPrincipal: TViewPrincipal
         Height = 23
         Alignment = taRightJustify
         TabOrder = 1
+        Text = '1'
+        OnExit = edtQuantidadeExit
       end
     end
     object edtCodigoBarras: TEdit
@@ -1114,6 +1118,7 @@ object ViewPrincipal: TViewPrincipal
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = [fsBold]
+      OnDrawDataCell = DBGridDrawDataCell
       Columns = <
         item
           Expanded = False
@@ -1165,6 +1170,7 @@ object ViewPrincipal: TViewPrincipal
     Top = 157
   end
   object FDMemTable_itens: TFDMemTable
+    AfterPost = FDMemTable_itensAfterPost
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     ResourceOptions.AssignedValues = [rvSilentMode]
@@ -1182,6 +1188,7 @@ object ViewPrincipal: TViewPrincipal
     end
     object FDMemTable_itensQTD_PRODUTO: TCurrencyField
       FieldName = 'QTD_PRODUTO'
+      currency = False
     end
     object FDMemTable_itensVLR_UNITARIO: TCurrencyField
       FieldName = 'VLR_UNITARIO'

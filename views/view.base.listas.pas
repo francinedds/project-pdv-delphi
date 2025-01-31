@@ -61,38 +61,39 @@ implementation
 {$R *.dfm}
 
 procedure TViewBaseListas.btnFecharClick(Sender: TObject);
-begin //fechar
+begin // fechar
   inherited;
   Self.Close;
 end;
 
 procedure TViewBaseListas.btnVoltarClick(Sender: TObject);
-begin //voltar
+begin // voltar
   inherited;
   CardPanel_conteudo.ActiveCard := card_pesquisa;
 end;
 
 procedure TViewBaseListas.FormCreate(Sender: TObject);
-begin //create
+begin // create
   inherited;
   FService := TServiceCadastro.Create(Self);
 end;
 
 procedure TViewBaseListas.FormDestroy(Sender: TObject);
-begin //destroy
+begin // destroy
   inherited;
   FreeAndNil(FService);
 end;
 
 procedure TViewBaseListas.FormShow(Sender: TObject);
-begin //aparecerá sempre a aba de pesquisa primeiro
+begin // aparecerá sempre a aba de pesquisa primeiro
   inherited;
   CardPanel_conteudo.ActiveCard := card_pesquisa;
+
 end;
 
 procedure TViewBaseListas.pnlTopoMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-const //mover o formulário sem bordas
+const // mover o formulário sem bordas
   sc_DragMove = $f012;
 begin
   inherited;

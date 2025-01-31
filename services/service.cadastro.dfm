@@ -116,6 +116,7 @@ inherited ServiceCadastro: TServiceCadastro
       Origin = 'PR2_VENDAVISTA'
       ProviderFlags = []
       ReadOnly = True
+      DisplayFormat = '###,##0.00'
     end
     object FDQuery_produtosPR2_VENDAPRAZO: TLargeintField
       AutoGenerateValue = arDefault

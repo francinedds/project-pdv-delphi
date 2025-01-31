@@ -13,6 +13,7 @@ inherited ViewBaseListas: TViewBaseListas
     Top = 0
     Width = 1120
     Height = 42
+    Cursor = crHandPoint
     Margins.Top = 0
     Align = alTop
     BevelOuter = bvNone

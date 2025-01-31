@@ -9,7 +9,8 @@ uses
   view.caixa in 'views\view.caixa.pas' {ViewCaixa},
   service.cadastro in 'services\service.cadastro.pas' {ServiceCadastro: TDataModule},
   provider.functions in 'providers\provider.functions.pas',
-  provider.variaveis in 'providers\provider.variaveis.pas';
+  provider.variaveis in 'providers\provider.variaveis.pas',
+  view.fundo in 'views\view.fundo.pas' {ViewFundo};
 
 {$R *.res}
 
@@ -22,5 +23,6 @@ begin
   Application.CreateForm(TViewBaseListas, ViewBaseListas);
   Application.CreateForm(TViewCaixa, ViewCaixa);
   Application.CreateForm(TServiceCadastro, ServiceCadastro);
+  Application.CreateForm(TViewFundo, ViewFundo);
   Application.Run;
 end.

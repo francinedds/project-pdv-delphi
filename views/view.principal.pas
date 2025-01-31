@@ -64,8 +64,16 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure DimensionarGrid(dbg: TDBGrid);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure edtQuantidadeExit(Sender: TObject);
+    procedure FDMemTable_itensAfterPost(DataSet: TDataSet);
+    procedure DBGridDrawDataCell(Sender: TObject; const Rect: TRect;
+      Field: TField; State: TGridDrawState);
   private
-    { Private declarations }
+
+    var
+    TotalVenda: Double;
+
   public
     { Public declarations }
   end;
@@ -116,9 +124,36 @@ begin
     FDMemTable_itensVLR_TOTAL.AsFloat     := ValorSubtotal;
     FDMemTable_itens.Post;
 
+    // limpando os edts, após finalizar o processo
+
+    edtQuantidade.Text    := '1';
+    edtValorUnitario.Text := '0';
+
     edtCodigoBarras.Clear;
     edtCodigoBarras.SetFocus;
   end;
+end;
+
+procedure TViewPrincipal.edtQuantidadeExit(Sender: TObject);
+begin
+  edtCodigoBarras.SetFocus;  // quando sair do edtquantidade, volta ao edtcodigodebarras
+end;
+
+procedure TViewPrincipal.FDMemTable_itensAfterPost(DataSet: TDataSet);
+begin // somando depois do 'post' para salvar
+  TotalVenda := 0;
+
+  FDMemTable_itens.DisableControls;
+  FDMemTable_itens.First;
+  while FDMemTable_itens.Eof do
+  begin
+    FDMemTable_itens.Next;
+  end;
+  FDMemTable_itens.EnableControls;
+
+  TotalVenda := TotalVenda + FDMemTable_itensVLR_TOTAL.AsFloat;
+
+  edtTotalPagar.Text := FloatToStr(TotalVenda);
 end;
 
 procedure TViewPrincipal.FormKeyDown(Sender: TObject; var Key: Word;
@@ -132,6 +167,15 @@ begin
   // lembrar de habilitar 'true' em keypreview
 end;
 
+procedure TViewPrincipal.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if key = #43 then
+  begin
+    key := #0; // invalida a tecla pressionada anteriormente
+    edtQuantidade.SetFocus;
+  end;
+end;
+
 procedure TViewPrincipal.FormShow(Sender: TObject);
 begin // abrir a tela já com foco em 'código de barras'
     if edtCodigoBarras.Visible and edtCodigoBarras.Enabled then
@@ -141,6 +185,15 @@ end;
 procedure TViewPrincipal.FormResize(Sender: TObject);
 begin // dimensionar a grid automaticamente
     DimensionarGrid(DBGrid);
+end;
+
+procedure TViewPrincipal.DBGridDrawDataCell(Sender: TObject; const Rect: TRect;
+  Field: TField; State: TGridDrawState); // trocar a cor da grid
+begin
+//  DBGrid.Canvas.Brush.Color := clWhite;
+//  DBGrid.Canvas.Brush.Color := clBlack;
+//  DBGrid.Canvas.FillRect(Rect);
+//  TDBGrid(Sender).DefaultDrawColumnCell(Rect,DataCol,Column,State);
 end;
 
 procedure TViewPrincipal.DimensionarGrid(dbg: TDBGrid);

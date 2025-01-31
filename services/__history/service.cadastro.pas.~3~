@@ -1,0 +1,93 @@
+unit service.cadastro;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, service.conexao, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf,
+  FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
+  FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, FireDAC.Phys.IBBase,
+  FireDAC.Comp.UI, Data.DB, FireDAC.Comp.Client, FireDAC.Stan.Param,
+  FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet, vcl.Dialogs;
+
+type
+  TServiceCadastro = class(TServiceConexao)
+    FDQuery_abrecaixa: TFDQuery;
+    FDQuery_abrecaixaABR_CODIGO: TIntegerField;
+    FDQuery_abrecaixaABR_DATAABERTURA: TDateField;
+    FDQuery_abrecaixaABR_HRAABERTURA: TTimeField;
+    FDQuery_abrecaixaABR_DATAFECHAMENTO: TDateField;
+    FDQuery_abrecaixaABR_HRAFECHAMENTO: TTimeField;
+    FDQuery_abrecaixaABR_VLRINICIAL: TFMTBCDField;
+    FDQuery_abrecaixaABR_VLRFINAL: TFMTBCDField;
+    FDQuery_abrecaixaABR_CODIGOUSUARIO: TSmallintField;
+    FDQuery_abrecaixaABR_STATUS: TStringField;
+    FDQuery_abrecaixaABR_OBSERVACAO: TStringField;
+    FDQuery_produtos: TFDQuery;
+    FDQuery_movestoque: TFDQuery;
+    FDQuery_movestoque_item: TFDQuery;
+    FDQuery_movestoqueMOV_CODIGO: TIntegerField;
+    FDQuery_movestoqueMOV_TIPOESTOQUE: TIntegerField;
+    FDQuery_movestoqueMOV_DATA: TDateField;
+    FDQuery_movestoqueMOV_HORA: TTimeField;
+    FDQuery_movestoqueMOV_VLRDESCONTO: TFMTBCDField;
+    FDQuery_movestoqueMOV_VLRTOTAL: TFMTBCDField;
+    FDQuery_movestoqueMOV_VENDEDOR: TIntegerField;
+    FDQuery_movestoqueMOV_CLIENTE: TIntegerField;
+    FDQuery_movestoque_itemMVI_CODIGO: TIntegerField;
+    FDQuery_movestoque_itemMVI_CODIGOMOVESTOQUE: TIntegerField;
+    FDQuery_movestoque_itemMVI_CODITEM: TIntegerField;
+    FDQuery_movestoque_itemMVI_QUANTIDADE: TFMTBCDField;
+    FDQuery_movestoque_itemMVI_VLRUNITARIO: TFMTBCDField;
+    FDQuery_movestoque_itemMVI_VLRTOTAL: TFMTBCDField;
+    FDQuery_movestoque_itemMVI_VLRDESCONTO: TFMTBCDField;
+    FDQuery_produtosPR1_CODIGO: TIntegerField;
+    FDQuery_produtosPR1_NOMECOMPLETO: TStringField;
+    FDQuery_produtosPR1_CODIGOBARRA: TStringField;
+    FDQuery_produtosPR2_VENDAVISTA: TLargeintField;
+    FDQuery_produtosPR2_VENDAPRAZO: TLargeintField;
+    procedure Get_Caixa;
+    procedure Get_Produtos(AValue: string);
+  private
+    { Private declarations }
+  public
+    { Public declarations}
+  end;
+
+var
+  ServiceCadastro: TServiceCadastro;
+
+implementation
+
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+{ TServiceCadastro }
+
+
+procedure TServiceCadastro.Get_Caixa;
+begin
+  ServiceCadastro.FDQuery_abrecaixa.Close;
+  ServiceCadastro.FDQuery_abrecaixa.SQL.Clear;
+  ServiceCadastro.FDQuery_abrecaixa.SQL.Add('select * from abrecaixa');
+  ServiceCadastro.FDQuery_abrecaixa.Open();
+end;
+
+procedure TServiceCadastro.Get_Produtos(AValue: string);
+begin
+  ServiceCadastro.FDQuery_produtos.Close;
+  ServiceCadastro.FDQuery_produtos.Params[0].AsString := AValue;
+  ServiceCadastro.FDQuery_produtos.Open();
+
+  if FDQuery_abrecaixa.RecordCount < 1 then
+  begin
+    ShowMessage('Produto não encontrado!');
+    Abort;
+    // não funcinou, ele continua inserindo produto vazio
+  end;
+
+end;
+
+end.

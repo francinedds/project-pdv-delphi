@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
   FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, FireDAC.Phys.IBBase,
   FireDAC.Comp.UI, Data.DB, FireDAC.Comp.Client, FireDAC.Stan.Param,
-  FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet;
+  FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet, vcl.Dialogs;
 
 type
   TServiceCadastro = class(TServiceConexao)
@@ -80,6 +80,14 @@ begin
   ServiceCadastro.FDQuery_produtos.Close;
   ServiceCadastro.FDQuery_produtos.Params[0].AsString := AValue;
   ServiceCadastro.FDQuery_produtos.Open();
+
+  if FDQuery_produtos.RecordCount < 1 then
+  begin
+    ShowMessage('Produto não encontrado!');
+    Abort;
+    // abort impede que adicione celula vazia, como estava ocorrendo
+  end;
+
 end;
 
 end.
