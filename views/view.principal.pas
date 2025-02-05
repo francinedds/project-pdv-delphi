@@ -9,7 +9,7 @@ uses
   Vcl.Samples.Spin, service.cadastro, view.base.listas, view.caixa,
   provider.functions, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client, view.formasPGTO;
 
 type
   TViewPrincipal = class(TForm)
@@ -26,9 +26,9 @@ type
     btnFechar: TSpeedButton;
     pnlRodape: TPanel;
     pnlMenu: TPanel;
-    btnMenu: TSpeedButton;
+    btnCaixa: TSpeedButton;
     pnlSobre: TPanel;
-    btnSobre: TSpeedButton;
+    btnFaturar: TSpeedButton;
     pnlConsultaProduto: TPanel;
     pnlProdutos: TPanel;
     pnlTitulo: TPanel;
@@ -57,9 +57,10 @@ type
     FDMemTable_itensVLR_DESCONTO: TCurrencyField;
     FDMemTable_itensVLR_TOTAL: TCurrencyField;
     FDMemTable_itensNOME_PRODUTO: TStringField;
+    Timer: TTimer;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnFecharClick(Sender: TObject);
-    procedure btnMenuClick(Sender: TObject);
+    procedure btnCaixaClick(Sender: TObject);
     procedure edtCodigoBarrasExit(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -69,6 +70,8 @@ type
     procedure FDMemTable_itensAfterPost(DataSet: TDataSet);
     procedure DBGridDrawDataCell(Sender: TObject; const Rect: TRect;
       Field: TField; State: TGridDrawState);
+    procedure TimerTimer(Sender: TObject);
+    procedure btnFaturarClick(Sender: TObject);
   private
 
     var
@@ -90,9 +93,14 @@ begin
   Self.Close;
 end;
 
-procedure TViewPrincipal.btnMenuClick(Sender: TObject);
-begin // abrir caixa usando uma função
+procedure TViewPrincipal.btnCaixaClick(Sender: TObject);
+begin // abre caixa usando uma função
   CriaForm(TViewCaixa, ViewCaixa);
+end;
+
+procedure TViewPrincipal.btnFaturarClick(Sender: TObject);
+begin // abre faturar usando uma função
+  CriaForm(TViewFormasPGTO, ViewFormasPGTO);
 end;
 
 procedure TViewPrincipal.edtCodigoBarrasExit(Sender: TObject); // produto em tela ao clicar fora do edt
@@ -157,14 +165,28 @@ begin // somando depois do 'post' para salvar
 end;
 
 procedure TViewPrincipal.FormKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
+  Shift: TShiftState); // habilitar 'true' em keypreview
 begin
+
     case key of
     VK_ESCAPE: begin
       Self.Close;
     end;
   end;
-  // lembrar de habilitar 'true' em keypreview
+
+      case key of
+    VK_F2: begin
+      btnCaixa.Click;
+    end;
+  end;
+
+
+      case key of
+    VK_F3: begin
+      btnFaturar.Click;
+    end;
+  end;
+
 end;
 
 procedure TViewPrincipal.FormKeyPress(Sender: TObject; var Key: Char);
@@ -180,6 +202,11 @@ procedure TViewPrincipal.FormShow(Sender: TObject);
 begin // abrir a tela já com foco em 'código de barras'
     if edtCodigoBarras.Visible and edtCodigoBarras.Enabled then
     edtCodigoBarras.SetFocus;
+end;
+
+procedure TViewPrincipal.TimerTimer(Sender: TObject);
+begin // configurando a hora do sistema
+  lblHoras.Caption := TimeToStr(Time);
 end;
 
 procedure TViewPrincipal.FormResize(Sender: TObject);

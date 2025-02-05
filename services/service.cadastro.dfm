@@ -1,6 +1,6 @@
 inherited ServiceCadastro: TServiceCadastro
   Height = 841
-  Width = 177
+  Width = 322
   inherited FDConnection: TFDConnection
     Left = 72
     Top = 40
@@ -233,6 +233,30 @@ inherited ServiceCadastro: TServiceCadastro
       currency = True
       Precision = 18
       Size = 2
+    end
+  end
+  object FDQuery_formasPGTO: TFDQuery
+    Active = True
+    Connection = FDConnection
+    SQL.Strings = (
+      'select * from formaspagamento order by for_codigo')
+    Left = 224
+    Top = 416
+    object FDQuery_formasPGTOFOR_CODIGO: TIntegerField
+      FieldName = 'FOR_CODIGO'
+      Origin = 'FOR_CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQuery_formasPGTOFOR_DESCRICAO: TStringField
+      FieldName = 'FOR_DESCRICAO'
+      Origin = 'FOR_DESCRICAO'
+      Size = 100
+    end
+    object FDQuery_formasPGTOFOR_GERARECEBER: TStringField
+      FieldName = 'FOR_GERARECEBER'
+      Origin = 'FOR_GERARECEBER'
+      Size = 10
     end
   end
 end

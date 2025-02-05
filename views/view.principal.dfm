@@ -797,14 +797,14 @@ object ViewPrincipal: TViewPrincipal
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 0
-      object btnMenu: TSpeedButton
+      object btnCaixa: TSpeedButton
         Left = 0
         Top = 0
         Width = 113
         Height = 55
         Cursor = crHandPoint
         Align = alClient
-        Caption = 'F2 | MENU'
+        Caption = 'F2 | CAIXA'
         Flat = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
@@ -812,7 +812,7 @@ object ViewPrincipal: TViewPrincipal
         Font.Name = 'Segoe UI'
         Font.Style = [fsBold]
         ParentFont = False
-        OnClick = btnMenuClick
+        OnClick = btnCaixaClick
         ExplicitLeft = 32
         ExplicitTop = 25
         ExplicitWidth = 23
@@ -827,14 +827,14 @@ object ViewPrincipal: TViewPrincipal
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 1
-      object btnSobre: TSpeedButton
+      object btnFaturar: TSpeedButton
         Left = 0
         Top = 0
         Width = 113
         Height = 55
         Cursor = crHandPoint
         Align = alClient
-        Caption = 'F3 | SOBRE'
+        Caption = 'F3 | FATURAR'
         Flat = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
@@ -842,6 +842,7 @@ object ViewPrincipal: TViewPrincipal
         Font.Name = 'Segoe UI'
         Font.Style = [fsBold]
         ParentFont = False
+        OnClick = btnFaturarClick
         ExplicitLeft = 32
         ExplicitTop = 24
         ExplicitWidth = 23
@@ -954,7 +955,6 @@ object ViewPrincipal: TViewPrincipal
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 2
-      ExplicitTop = 395
       object lblNomeProduto: TLabel
         Left = 168
         Top = 29
@@ -1167,7 +1167,7 @@ object ViewPrincipal: TViewPrincipal
   object dsItens: TDataSource
     DataSet = FDMemTable_itens
     Left = 1026
-    Top = 157
+    Top = 277
   end
   object FDMemTable_itens: TFDMemTable
     AfterPost = FDMemTable_itensAfterPost
@@ -1179,7 +1179,7 @@ object ViewPrincipal: TViewPrincipal
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
     Left = 1026
-    Top = 229
+    Top = 349
     object FDMemTable_itensCOD_ITEM: TIntegerField
       FieldName = 'COD_ITEM'
     end
@@ -1199,5 +1199,10 @@ object ViewPrincipal: TViewPrincipal
     object FDMemTable_itensVLR_TOTAL: TCurrencyField
       FieldName = 'VLR_TOTAL'
     end
+  end
+  object Timer: TTimer
+    OnTimer = TimerTimer
+    Left = 1026
+    Top = 421
   end
 end

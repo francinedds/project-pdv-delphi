@@ -46,6 +46,10 @@ type
     FDQuery_produtosPR1_CODIGOBARRA: TStringField;
     FDQuery_produtosPR2_VENDAVISTA: TLargeintField;
     FDQuery_produtosPR2_VENDAPRAZO: TLargeintField;
+    FDQuery_formasPGTO: TFDQuery;
+    FDQuery_formasPGTOFOR_CODIGO: TIntegerField;
+    FDQuery_formasPGTOFOR_DESCRICAO: TStringField;
+    FDQuery_formasPGTOFOR_GERARECEBER: TStringField;
     procedure Get_Caixa;
     procedure Get_Produtos(AValue: string);
   private

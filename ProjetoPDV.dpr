@@ -10,7 +10,8 @@ uses
   service.cadastro in 'services\service.cadastro.pas' {ServiceCadastro: TDataModule},
   provider.functions in 'providers\provider.functions.pas',
   provider.variaveis in 'providers\provider.variaveis.pas',
-  view.fundo in 'views\view.fundo.pas' {ViewFundo};
+  view.fundo in 'views\view.fundo.pas' {ViewFundo},
+  view.formasPGTO in 'views\view.formasPGTO.pas' {ViewFormasPGTO};
 
 {$R *.res}
 
