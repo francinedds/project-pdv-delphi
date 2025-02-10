@@ -11,19 +11,22 @@ uses
   provider.functions in 'providers\provider.functions.pas',
   provider.variaveis in 'providers\provider.variaveis.pas',
   view.fundo in 'views\view.fundo.pas' {ViewFundo},
-  view.formasPGTO in 'views\view.formasPGTO.pas' {ViewFormasPGTO};
+  view.formasPGTO in 'views\view.formasPGTO.pas' {ViewFormasPGTO},
+  view.login in 'views\view.login.pas' {ViewLogin};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TViewLogin, ViewLogin);
   Application.CreateForm(TViewPrincipal, ViewPrincipal);
   Application.CreateForm(TServiceConexao, ServiceConexao);
-  Application.CreateForm(TViewBase, ViewBase);
-  Application.CreateForm(TViewBaseListas, ViewBaseListas);
-  Application.CreateForm(TViewCaixa, ViewCaixa);
   Application.CreateForm(TServiceCadastro, ServiceCadastro);
+  Application.CreateForm(TViewCaixa, ViewCaixa);
+  Application.CreateForm(TViewFormasPGTO, ViewFormasPGTO);
+  Application.CreateForm(TViewBaseListas, ViewBaseListas);
   Application.CreateForm(TViewFundo, ViewFundo);
+  Application.CreateForm(TViewBase, ViewBase);
   Application.Run;
 end.

@@ -9,7 +9,8 @@ uses
   Vcl.Samples.Spin, service.cadastro, view.base.listas, view.caixa,
   provider.functions, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
-  FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client, view.formasPGTO;
+  FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client, view.formasPGTO,
+  view.fundo;
 
 type
   TViewPrincipal = class(TForm)
@@ -100,7 +101,19 @@ end;
 
 procedure TViewPrincipal.btnFaturarClick(Sender: TObject);
 begin // abre faturar usando uma função
-  CriaForm(TViewFormasPGTO, ViewFormasPGTO);
+
+   ViewFormasPGTO := TViewFormasPGTO.Create(Self);
+   try
+      ViewFormasPGTO.ValorVenda := StrToFloatDef(edtTotalPagar.Text, 0);
+      ViewFundo.Show;
+      ViewFormasPGTO.ShowModal;
+   finally
+      ViewFundo.Hide;
+      FreeAndNil(ViewFormasPGTO);
+   end;
+
+
+  // CriaForm(TViewFormasPGTO, ViewFormasPGTO);
 end;
 
 procedure TViewPrincipal.edtCodigoBarrasExit(Sender: TObject); // produto em tela ao clicar fora do edt

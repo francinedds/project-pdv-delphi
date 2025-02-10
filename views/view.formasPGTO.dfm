@@ -180,6 +180,7 @@ inherited ViewFormasPGTO: TViewFormasPGTO
       Font.Height = -11
       Font.Name = 'Tahoma'
       Font.Style = []
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       ParentFont = False
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
@@ -187,6 +188,7 @@ inherited ViewFormasPGTO: TViewFormasPGTO
       TitleFont.Height = -12
       TitleFont.Name = 'Segoe UI'
       TitleFont.Style = []
+      OnDblClick = DBGrid_formasPGTODblClick
       Columns = <
         item
           Expanded = False
@@ -223,12 +225,37 @@ inherited ViewFormasPGTO: TViewFormasPGTO
       Height = 351
       Align = alClient
       BorderStyle = bsNone
+      DataSource = dsFormasPGTOescolha
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -12
       TitleFont.Name = 'Segoe UI'
       TitleFont.Style = []
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'NOME_FORMAPGTO'
+          Title.Caption = 'FORMA DE PAGAMENTO ESCOLHIDA'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -11
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 405
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'VALOR_PGTO'
+          Title.Caption = 'VALOR'
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -11
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Visible = True
+        end>
     end
   end
   object Panel1: TPanel
@@ -350,9 +377,9 @@ inherited ViewFormasPGTO: TViewFormasPGTO
     end
   end
   object pnlValorParaFaturar: TPanel
-    Left = 224
+    Left = 267
     Top = 176
-    Width = 385
+    Width = 310
     Height = 137
     BevelOuter = bvNone
     Color = clMedGray
@@ -362,7 +389,7 @@ inherited ViewFormasPGTO: TViewFormasPGTO
     object pnlTituloValorFaturar: TPanel
       Left = 0
       Top = 0
-      Width = 385
+      Width = 310
       Height = 49
       Align = alTop
       BevelOuter = bvNone
@@ -370,7 +397,7 @@ inherited ViewFormasPGTO: TViewFormasPGTO
       ParentBackground = False
       TabOrder = 0
       object lblTitleValorFaturar: TLabel
-        Left = 122
+        Left = 82
         Top = 16
         Width = 148
         Height = 16
@@ -384,9 +411,9 @@ inherited ViewFormasPGTO: TViewFormasPGTO
       end
     end
     object pnlBtnOk: TPanel
-      Left = 296
+      Left = 240
       Top = 104
-      Width = 89
+      Width = 73
       Height = 33
       BevelOuter = bvNone
       Color = 1557836
@@ -395,7 +422,7 @@ inherited ViewFormasPGTO: TViewFormasPGTO
       object btnOk: TSpeedButton
         Left = 0
         Top = 0
-        Width = 89
+        Width = 73
         Height = 33
         Cursor = crHandPoint
         Align = alClient
@@ -407,12 +434,14 @@ inherited ViewFormasPGTO: TViewFormasPGTO
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
-        ExplicitLeft = 16
-        ExplicitWidth = 49
+        OnClick = btnOkClick
+        ExplicitLeft = -16
+        ExplicitTop = -10
+        ExplicitWidth = 65
       end
     end
     object edtValorParaFaturar: TEdit
-      Left = 265
+      Left = 193
       Top = 55
       Width = 112
       Height = 33
@@ -433,7 +462,40 @@ inherited ViewFormasPGTO: TViewFormasPGTO
   end
   object dsFormasPGTO: TDataSource
     DataSet = ServiceCadastro.FDQuery_formasPGTO
-    Left = 52
-    Top = 269
+    Left = 156
+    Top = 349
+  end
+  object FDMemTable_formasPGTO: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 643
+    Top = 349
+    object FDMemTable_formasPGTOID_FORMAPGTO: TIntegerField
+      FieldName = 'ID_FORMAPGTO'
+    end
+    object FDMemTable_formasPGTOVALOR_PGTO: TCurrencyField
+      FieldName = 'VALOR_PGTO'
+    end
+    object FDMemTable_formasPGTONOME_FORMAPGTO: TStringField
+      FieldName = 'NOME_FORMAPGTO'
+      Size = 100
+    end
+    object FDMemTable_formasPGTOGERAR_RECEBER: TStringField
+      FieldName = 'GERAR_RECEBER'
+      Size = 1
+    end
+    object FDMemTable_formasPGTOID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+    end
+  end
+  object dsFormasPGTOescolha: TDataSource
+    DataSet = FDMemTable_formasPGTO
+    Left = 643
+    Top = 285
   end
 end

@@ -1,0 +1,39 @@
+unit view.login;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
+  Vcl.Imaging.jpeg, Vcl.Buttons;
+
+type
+  TForm1 = class(TForm)
+    pnlBackground: TPanel;
+    pnlLateral: TPanel;
+    lblDesenvolvido: TLabel;
+    lblUsuario: TLabel;
+    lblSenha: TLabel;
+    edtSenha: TEdit;
+    edtNomeUsuario: TEdit;
+    pnlBtn: TPanel;
+    btnContinuar: TSpeedButton;
+    Image1: TImage;
+    lblBemVindo: TLabel;
+    lblVersao: TLabel;
+    pnlBtnFechar: TPanel;
+    btnFechar: TSpeedButton;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+end.
