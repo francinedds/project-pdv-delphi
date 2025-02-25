@@ -29,6 +29,7 @@ type
     procedure btnFecharClick(Sender: TObject);
     procedure btnContinuarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure edtSenhaKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -43,14 +44,32 @@ implementation
 {$R *.dfm}
 
 procedure TViewLogin.btnContinuarClick(Sender: TObject);
-begin // mostra formulário
-  CriaForm(TViewPrincipal, ViewPrincipal);
-  Self.Close;
+const // entrar
+  UsuarioValido = 'admin';
+  SenhaValida = '1234';
+  // ambos são fixos já que não usamos banco
+begin
+  if (edtNomeUsuario.Text = UsuarioValido) and (edtSenha.Text = SenhaValida) then
+    begin
+      ViewPrincipal.Show;
+    end
+  else
+    begin
+      ShowMessage('Usuário ou senha inválidos!');
+    end;
 end;
 
 procedure TViewLogin.btnFecharClick(Sender: TObject);
 begin // botão fechar
   Self.Close;
+end;
+
+procedure TViewLogin.edtSenhaKeyPress(Sender: TObject; var Key: Char);
+begin // entrar com enter
+  if Key = #13 then
+  begin
+     btnContinuar.Click;
+  end;
 end;
 
 procedure TViewLogin.FormShow(Sender: TObject);

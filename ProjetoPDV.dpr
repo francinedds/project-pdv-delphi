@@ -12,7 +12,8 @@ uses
   provider.variaveis in 'providers\provider.variaveis.pas',
   view.fundo in 'views\view.fundo.pas' {ViewFundo},
   view.formasPGTO in 'views\view.formasPGTO.pas' {ViewFormasPGTO},
-  view.login in 'views\view.login.pas' {ViewLogin};
+  view.login in 'views\view.login.pas' {ViewLogin},
+  provider.conversao in 'providers\provider.conversao.pas';
 
 {$R *.res}
 
@@ -22,11 +23,11 @@ begin
   Application.CreateForm(TViewLogin, ViewLogin);
   Application.CreateForm(TViewPrincipal, ViewPrincipal);
   Application.CreateForm(TServiceConexao, ServiceConexao);
-  Application.CreateForm(TServiceCadastro, ServiceCadastro);
-  Application.CreateForm(TViewCaixa, ViewCaixa);
-  Application.CreateForm(TViewFormasPGTO, ViewFormasPGTO);
-  Application.CreateForm(TViewBaseListas, ViewBaseListas);
-  Application.CreateForm(TViewFundo, ViewFundo);
   Application.CreateForm(TViewBase, ViewBase);
+  Application.CreateForm(TViewBaseListas, ViewBaseListas);
+  Application.CreateForm(TViewCaixa, ViewCaixa);
+  Application.CreateForm(TServiceCadastro, ServiceCadastro);
+  Application.CreateForm(TViewFundo, ViewFundo);
+  Application.CreateForm(TViewFormasPGTO, ViewFormasPGTO);
   Application.Run;
 end.

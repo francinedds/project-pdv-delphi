@@ -145,6 +145,7 @@ inherited ViewFormasPGTO: TViewFormasPGTO
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
+        OnClick = btnSalvarClick
         ExplicitLeft = 48
         ExplicitTop = 3
         ExplicitWidth = 104
@@ -473,8 +474,8 @@ inherited ViewFormasPGTO: TViewFormasPGTO
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 643
-    Top = 349
+    Left = 651
+    Top = 189
     object FDMemTable_formasPGTOID_FORMAPGTO: TIntegerField
       FieldName = 'ID_FORMAPGTO'
     end
@@ -495,7 +496,37 @@ inherited ViewFormasPGTO: TViewFormasPGTO
   end
   object dsFormasPGTOescolha: TDataSource
     DataSet = FDMemTable_formasPGTO
-    Left = 643
-    Top = 285
+    Left = 651
+    Top = 125
+  end
+  object FDMemTable_itensVenda: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 654
+    Top = 293
+    object FDMemTable_itensVendaCOD_ITEM: TIntegerField
+      FieldName = 'COD_ITEM'
+    end
+    object FDMemTable_itensVendaNOME_PRODUTO: TStringField
+      FieldName = 'NOME_PRODUTO'
+    end
+    object FDMemTable_itensVendaQTD_PRODUTO: TCurrencyField
+      FieldName = 'QTD_PRODUTO'
+      currency = False
+    end
+    object FDMemTable_itensVendaVLR_UNITARIO: TCurrencyField
+      FieldName = 'VLR_UNITARIO'
+    end
+    object FDMemTable_itensVendaVLR_DESCONTO: TCurrencyField
+      FieldName = 'VLR_DESCONTO'
+    end
+    object FDMemTable_itensVendaVLR_TOTAL: TCurrencyField
+      FieldName = 'VLR_TOTAL'
+    end
   end
 end

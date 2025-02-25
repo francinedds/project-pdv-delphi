@@ -1,0 +1,154 @@
+unit service.cadastro;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, service.conexao, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf,
+  FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
+  FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, FireDAC.Phys.IBBase,
+  FireDAC.Comp.UI, Data.DB, FireDAC.Comp.Client, FireDAC.Stan.Param,
+  FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet, vcl.Dialogs;
+
+type
+  TServiceCadastro = class(TServiceConexao)
+    FDQuery_abrecaixa: TFDQuery;
+    FDQuery_abrecaixaABR_CODIGO: TIntegerField;
+    FDQuery_abrecaixaABR_DATAABERTURA: TDateField;
+    FDQuery_abrecaixaABR_HRAABERTURA: TTimeField;
+    FDQuery_abrecaixaABR_DATAFECHAMENTO: TDateField;
+    FDQuery_abrecaixaABR_HRAFECHAMENTO: TTimeField;
+    FDQuery_abrecaixaABR_VLRINICIAL: TFMTBCDField;
+    FDQuery_abrecaixaABR_VLRFINAL: TFMTBCDField;
+    FDQuery_abrecaixaABR_CODIGOUSUARIO: TSmallintField;
+    FDQuery_abrecaixaABR_STATUS: TStringField;
+    FDQuery_abrecaixaABR_OBSERVACAO: TStringField;
+    FDQuery_produtos: TFDQuery;
+    FDQuery_venda: TFDQuery;
+    FDQuery_venda_item: TFDQuery;
+    FDQuery_vendaMOV_CODIGO: TIntegerField;
+    FDQuery_vendaMOV_TIPOESTOQUE: TIntegerField;
+    FDQuery_vendaMOV_DATA: TDateField;
+    FDQuery_vendaMOV_HORA: TTimeField;
+    FDQuery_vendaMOV_VLRDESCONTO: TFMTBCDField;
+    FDQuery_vendaMOV_VLRTOTAL: TFMTBCDField;
+    FDQuery_vendaMOV_VENDEDOR: TIntegerField;
+    FDQuery_vendaMOV_CLIENTE: TIntegerField;
+    FDQuery_venda_itemMVI_CODIGO: TIntegerField;
+    FDQuery_venda_itemMVI_CODIGOMOVESTOQUE: TIntegerField;
+    FDQuery_venda_itemMVI_CODITEM: TIntegerField;
+    FDQuery_venda_itemMVI_QUANTIDADE: TFMTBCDField;
+    FDQuery_venda_itemMVI_VLRUNITARIO: TFMTBCDField;
+    FDQuery_venda_itemMVI_VLRTOTAL: TFMTBCDField;
+    FDQuery_venda_itemMVI_VLRDESCONTO: TFMTBCDField;
+    FDQuery_produtosPR1_CODIGO: TIntegerField;
+    FDQuery_produtosPR1_NOMECOMPLETO: TStringField;
+    FDQuery_produtosPR1_CODIGOBARRA: TStringField;
+    FDQuery_produtosPR2_VENDAVISTA: TLargeintField;
+    FDQuery_produtosPR2_VENDAPRAZO: TLargeintField;
+    FDQuery_formasPGTO: TFDQuery;
+    FDQuery_formasPGTOFOR_CODIGO: TIntegerField;
+    FDQuery_formasPGTOFOR_DESCRICAO: TStringField;
+    FDQuery_formasPGTOFOR_GERARECEBER: TStringField;
+    FDQuery_CadCaixa: TFDQuery;
+    FDQuery_CadCaixaCAI_CODIGO: TIntegerField;
+    FDQuery_CadCaixaCAI_DATAHORA: TSQLTimeStampField;
+    FDQuery_CadCaixaCAI_TIPO: TStringField;
+    FDQuery_CadCaixaCAI_VALOR: TFMTBCDField;
+    FDQuery_CadCaixaCAI_DESCRICAO: TStringField;
+    FDQuery_CadCaixaCAI_IDFORMAPGTO: TIntegerField;
+    FDQuery_CadCaixaCAI_IDVENDA: TIntegerField;
+    procedure Get_Caixa;
+    procedure Get_Produtos(AValue: string);
+    procedure Put_Caixa(tipo, descricao: string; valor: double; idformaPGTO, idVenda: integer);
+    procedure Put_Venda(ADataSet: TDataSet; TipoEstoque, Vendedor, Cliente: integer; ValorVenda, Desconto: double);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  ServiceCadastro: TServiceCadastro;
+
+implementation
+
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+{ TServiceCadastro }
+
+
+procedure TServiceCadastro.Get_Caixa;
+begin
+  ServiceCadastro.FDQuery_abrecaixa.Close;
+  ServiceCadastro.FDQuery_abrecaixa.SQL.Clear;
+  ServiceCadastro.FDQuery_abrecaixa.SQL.Add('select * from abrecaixa');
+  ServiceCadastro.FDQuery_abrecaixa.Open();
+end;
+
+procedure TServiceCadastro.Get_Produtos(AValue: string);
+begin
+  ServiceCadastro.FDQuery_produtos.Close;
+  ServiceCadastro.FDQuery_produtos.Params[0].AsString := AValue;
+  ServiceCadastro.FDQuery_produtos.Open();
+
+  if FDQuery_produtos.RecordCount < 1 then
+  begin
+    ShowMessage('Produto não encontrado!');
+    Abort;
+    // abort impede que adicione celula vazia, como estava ocorrendo
+  end;
+
+end;
+
+procedure TServiceCadastro.Put_Caixa(tipo, descricao: string; valor: double; idformaPGTO, idVenda: integer);
+begin // salva caixa
+  ServiceCadastro.FDQuery_cadCaixa.Close;
+  ServiceCadastro.FDQuery_cadCaixa.Open();
+  ServiceCadastro.FDQuery_cadCaixa.Insert;
+  ServiceCadastro.FDQuery_cadCaixaCAI_DATAHORA.AsDateTime   := Now;
+  ServiceCadastro.FDQuery_cadCaixaCAI_TIPO.AsString         := tipo;
+  ServiceCadastro.FDQuery_cadCaixaCAI_VALOR.AsFloat         := valor;
+  ServiceCadastro.FDQuery_cadCaixaCAI_DESCRICAO.AsString    := descricao;
+  ServiceCadastro.FDQuery_cadCaixaCAI_IDFORMAPGTO.AsInteger := idformaPGTO;
+  ServiceCadastro.FDQuery_cadCaixaCAI_IDVENDA.AsInteger     := idVenda;
+  ServiceCadastro.FDQuery_cadCaixa.Post;
+end;
+
+procedure TServiceCadastro.Put_Venda(ADataSet: TDataSet; TipoEstoque, Vendedor, Cliente: integer;
+  ValorVenda, Desconto: double);
+begin // salva venda
+  FDQuery_venda.Close;
+  FDQuery_venda.Open();
+  FDQuery_venda.Insert;
+  FDQuery_vendaMOV_TIPOESTOQUE.AsInteger := 1;
+  FDQuery_vendaMOV_DATA.AsDateTime       := Date;
+  FDQuery_vendaMOV_HORA.AsDateTime       := Time;
+  FDQuery_vendaMOV_VLRDESCONTO.AsFloat   := Desconto;
+  FDQuery_vendaMOV_VLRTOTAL.AsFloat      := ValorVenda;
+  FDQuery_vendaMOV_VENDEDOR.AsInteger    := Vendedor;
+  FDQuery_vendaMOV_CLIENTE.AsInteger     := Cliente;
+  FDQuery_venda.Post;
+
+  ADataSet.First;
+  while not ADataSet.Eof do
+  begin
+    FDQuery_venda_item.Close;
+    FDQuery_venda_item.Open();
+    FDQuery_venda_item.Insert;
+    FDQuery_venda_itemMVI_CODIGOMOVESTOQUE.AsInteger := FDQuery_vendaMOV_CODIGO.AsInteger;
+    FDQuery_venda_itemMVI_CODITEM.AsInteger          := ADataSet.FieldByName('cod_item').AsInteger;
+    FDQuery_venda_itemMVI_QUANTIDADE.AsFloat         := ADataSet.FieldByName('qtd_produto').AsFloat;
+    FDQuery_venda_itemMVI_VLRUNITARIO.AsFloat        := ADataSet.FieldByName('vlr_unitario').AsFloat;
+    FDQuery_venda_itemMVI_VLRTOTAL.AsFloat           := ADataSet.FieldByName('vlr_desconto').AsFloat;
+    FDQuery_venda_itemMVI_VLRDESCONTO.AsFloat        := ADataSet.FieldByName('vlr_total').AsFloat;
+
+    ADataSet.Next;
+  end;
+
+end;
+
+end.

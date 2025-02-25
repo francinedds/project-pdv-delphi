@@ -48,12 +48,20 @@ type
     FDMemTable_formasPGTOGERAR_RECEBER: TStringField;
     FDMemTable_formasPGTOID_CLIENTE: TIntegerField;
     dsFormasPGTOescolha: TDataSource;
+    FDMemTable_itensVenda: TFDMemTable;
+    FDMemTable_itensVendaCOD_ITEM: TIntegerField;
+    FDMemTable_itensVendaNOME_PRODUTO: TStringField;
+    FDMemTable_itensVendaQTD_PRODUTO: TCurrencyField;
+    FDMemTable_itensVendaVLR_UNITARIO: TCurrencyField;
+    FDMemTable_itensVendaVLR_DESCONTO: TCurrencyField;
+    FDMemTable_itensVendaVLR_TOTAL: TCurrencyField;
     procedure btnFecharFormasPGTOClick(Sender: TObject);
     procedure pnlTopoMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure FormShow(Sender: TObject);
     procedure DBGrid_formasPGTODblClick(Sender: TObject);
     procedure btnOkClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
   private
     { Private declarations }
     FValorVenda: double;
@@ -102,6 +110,39 @@ begin
   edtValorParaFaturar.Clear;
   pnlValorParaFaturar.Visible := False;
   DBGrid_formasPGTO.SetFocus;
+end;
+
+procedure TViewFormasPGTO.btnSalvarClick(Sender: TObject);
+begin // salvar
+  inherited;
+
+  ServiceCadastro.Put_Venda(FDMemTable_formasPGTO, 1, 1, 1, FValorVenda, 0);
+
+  FDMemTable_formasPGTO.First;
+
+  while not FDMemTable_formasPGTO.Eof do
+  begin
+
+    // gravando caixa
+
+    ServiceCadastro.Put_Caixa('E', 'VENDA PDV N. ' + IntToStr(ServiceCadastro.NumVenda),
+    FDMemTable_formasPGTOvalor_pgto.AsFloat,
+    FDMemTable_formasPGTOid_formapgto.AsInteger,
+    ServiceCadastro.NumVenda);
+
+    // gravando contas a receber
+
+    if FDMemTable_formasPGTOgerar_receber.AsString = 'S' then
+    begin
+      ServiceCadastro.Put_Receber(IntToStr(ServiceCadastro.NumVenda) + '-' + IntToStr(FDMemTable_formasPGTOID_FORMAPGTO.AsInteger),
+                                           FDMemTable_formasPGTOID_CLIENTE.AsInteger,
+                                           FDMemTable_formasPGTOVALOR_PGTO.AsFloat);
+    end;
+
+    FDMemTable_formasPGTO.Next;
+  end;
+  ShowMessage('Salvo com sucesso!');
+  Self.ModalResult := mrOk;
 end;
 
 procedure TViewFormasPGTO.DBGrid_formasPGTODblClick(Sender: TObject);

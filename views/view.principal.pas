@@ -10,7 +10,7 @@ uses
   provider.functions, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client, view.formasPGTO,
-  view.fundo;
+  view.fundo, Vcl.Menus;
 
 type
   TViewPrincipal = class(TForm)
@@ -59,6 +59,8 @@ type
     FDMemTable_itensVLR_TOTAL: TCurrencyField;
     FDMemTable_itensNOME_PRODUTO: TStringField;
     Timer: TTimer;
+    PopupMenu: TPopupMenu;
+    Deletaritem1: TMenuItem;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnFecharClick(Sender: TObject);
     procedure btnCaixaClick(Sender: TObject);
@@ -73,10 +75,13 @@ type
       Field: TField; State: TGridDrawState);
     procedure TimerTimer(Sender: TObject);
     procedure btnFaturarClick(Sender: TObject);
+    procedure Deletaritem1Click(Sender: TObject);
+    procedure FDMemTable_itensAfterDelete(DataSet: TDataSet);
   private
 
     var
     TotalVenda: Double;
+    procedure SomarVenda;
 
   public
     { Public declarations }
@@ -102,11 +107,26 @@ end;
 procedure TViewPrincipal.btnFaturarClick(Sender: TObject);
 begin // abre faturar usando uma função
 
+  if FDMemTable_itens.RecordCount < 1 then
+  Abort;
+
    ViewFormasPGTO := TViewFormasPGTO.Create(Self);
    try
       ViewFormasPGTO.ValorVenda := StrToFloatDef(edtTotalPagar.Text, 0);
+
+      ViewFormasPGTO.FDMemTable_itensVenda.CopyDataSet(FDMemTable_itens); // copia um memtable para o outro
+
       ViewFundo.Show;
       ViewFormasPGTO.ShowModal;
+
+      if ViewFormasPGTO.ModalResult = mrOk then
+      begin
+        FDMemTable_itens.EmptyDataSet;
+        edtSubtotal.Clear;
+        edtTotalPagar.Clear;
+        edtCodigoBarras.SetFocus;
+      end;
+
    finally
       ViewFundo.Hide;
       FreeAndNil(ViewFormasPGTO);
@@ -160,21 +180,14 @@ begin
   edtCodigoBarras.SetFocus;  // quando sair do edtquantidade, volta ao edtcodigodebarras
 end;
 
+procedure TViewPrincipal.FDMemTable_itensAfterDelete(DataSet: TDataSet);
+begin
+  SomarVenda;
+end;
+
 procedure TViewPrincipal.FDMemTable_itensAfterPost(DataSet: TDataSet);
 begin // somando depois do 'post' para salvar
-  TotalVenda := 0;
-
-  FDMemTable_itens.DisableControls;
-  FDMemTable_itens.First;
-  while FDMemTable_itens.Eof do
-  begin
-    FDMemTable_itens.Next;
-  end;
-  FDMemTable_itens.EnableControls;
-
-  TotalVenda := TotalVenda + FDMemTable_itensVLR_TOTAL.AsFloat;
-
-  edtTotalPagar.Text := FloatToStr(TotalVenda);
+  SomarVenda;
 end;
 
 procedure TViewPrincipal.FormKeyDown(Sender: TObject; var Key: Word;
@@ -234,6 +247,29 @@ begin
 //  DBGrid.Canvas.Brush.Color := clBlack;
 //  DBGrid.Canvas.FillRect(Rect);
 //  TDBGrid(Sender).DefaultDrawColumnCell(Rect,DataCol,Column,State);
+end;
+
+procedure TViewPrincipal.Deletaritem1Click(Sender: TObject);
+begin // deletar item
+  FDMemTable_itens.Delete;
+  edtCodigoBarras.SetFocus;
+end;
+
+procedure TViewPrincipal.SomarVenda;
+begin // somando depois do 'post' para salvar
+  TotalVenda := 0;
+
+  FDMemTable_itens.DisableControls;
+  FDMemTable_itens.First;
+  while FDMemTable_itens.Eof do
+    begin
+      FDMemTable_itens.Next;
+    end;
+  FDMemTable_itens.EnableControls;
+
+  TotalVenda := TotalVenda + FDMemTable_itensVLR_TOTAL.AsFloat;
+
+  edtTotalPagar.Text := FloatToStr(TotalVenda);
 end;
 
 procedure TViewPrincipal.DimensionarGrid(dbg: TDBGrid);
