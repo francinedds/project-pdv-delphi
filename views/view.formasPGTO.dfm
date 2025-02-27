@@ -94,9 +94,9 @@ inherited ViewFormasPGTO: TViewFormasPGTO
   end
   object pnlRodape: TPanel
     Left = 0
-    Top = 560
+    Top = 550
     Width = 770
-    Height = 31
+    Height = 41
     Align = alBottom
     BevelOuter = bvNone
     Color = 6302000
@@ -106,35 +106,38 @@ inherited ViewFormasPGTO: TViewFormasPGTO
       Left = 113
       Top = 0
       Width = 113
-      Height = 31
+      Height = 41
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitHeight = 31
     end
     object pnlNovo: TPanel
       Left = 0
       Top = 0
       Width = 113
-      Height = 31
+      Height = 41
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 1
+      ExplicitHeight = 31
     end
     object pnlSalvar: TPanel
       Left = 672
       Top = 0
       Width = 98
-      Height = 31
+      Height = 41
       Align = alRight
       BevelOuter = bvNone
       Color = 1557580
       ParentBackground = False
       TabOrder = 2
+      ExplicitHeight = 31
       object btnSalvar: TSpeedButton
         Left = 0
         Top = 0
         Width = 98
-        Height = 31
+        Height = 41
         Cursor = crHandPoint
         Align = alClient
         Caption = 'SALVAR'
@@ -149,6 +152,7 @@ inherited ViewFormasPGTO: TViewFormasPGTO
         ExplicitLeft = 48
         ExplicitTop = 3
         ExplicitWidth = 104
+        ExplicitHeight = 31
       end
     end
   end
@@ -157,7 +161,7 @@ inherited ViewFormasPGTO: TViewFormasPGTO
     Left = 20
     Top = 61
     Width = 221
-    Height = 351
+    Height = 341
     Margins.Left = 20
     Margins.Top = 20
     Margins.Right = 0
@@ -167,11 +171,12 @@ inherited ViewFormasPGTO: TViewFormasPGTO
     Color = clWhite
     ParentBackground = False
     TabOrder = 2
+    ExplicitHeight = 351
     object DBGrid_formasPGTO: TDBGrid
       Left = 0
       Top = 0
       Width = 221
-      Height = 351
+      Height = 341
       Cursor = crHandPoint
       Align = alClient
       BorderStyle = bsNone
@@ -209,7 +214,7 @@ inherited ViewFormasPGTO: TViewFormasPGTO
     Left = 267
     Top = 61
     Width = 483
-    Height = 351
+    Height = 341
     Margins.Left = 0
     Margins.Top = 20
     Margins.Right = 20
@@ -219,11 +224,12 @@ inherited ViewFormasPGTO: TViewFormasPGTO
     Color = clWhite
     ParentBackground = False
     TabOrder = 3
+    ExplicitHeight = 351
     object DBGrid_formaEscolhida: TDBGrid
       Left = 0
       Top = 0
       Width = 483
-      Height = 351
+      Height = 341
       Align = alClient
       BorderStyle = bsNone
       DataSource = dsFormasPGTOescolha
@@ -262,7 +268,7 @@ inherited ViewFormasPGTO: TViewFormasPGTO
   object Panel1: TPanel
     AlignWithMargins = True
     Left = 20
-    Top = 432
+    Top = 422
     Width = 730
     Height = 108
     Margins.Left = 20
@@ -274,6 +280,7 @@ inherited ViewFormasPGTO: TViewFormasPGTO
     Color = clMedGray
     ParentBackground = False
     TabOrder = 4
+    ExplicitTop = 432
     object lblValorDaVenda: TLabel
       Left = 39
       Top = 24
@@ -378,28 +385,28 @@ inherited ViewFormasPGTO: TViewFormasPGTO
     end
   end
   object pnlValorParaFaturar: TPanel
-    Left = 267
-    Top = 176
-    Width = 310
-    Height = 137
+    Left = 360
+    Top = 163
+    Width = 305
+    Height = 126
     BevelOuter = bvNone
-    Color = clMedGray
     ParentBackground = False
     TabOrder = 5
     Visible = False
     object pnlTituloValorFaturar: TPanel
       Left = 0
       Top = 0
-      Width = 310
-      Height = 49
+      Width = 305
+      Height = 33
       Align = alTop
       BevelOuter = bvNone
       Color = 6302000
       ParentBackground = False
       TabOrder = 0
+      ExplicitWidth = 310
       object lblTitleValorFaturar: TLabel
         Left = 82
-        Top = 16
+        Top = 8
         Width = 148
         Height = 16
         Caption = 'VALOR PARA FATURAR'
@@ -412,8 +419,8 @@ inherited ViewFormasPGTO: TViewFormasPGTO
       end
     end
     object pnlBtnOk: TPanel
-      Left = 240
-      Top = 104
+      Left = 224
+      Top = 88
       Width = 73
       Height = 33
       BevelOuter = bvNone
@@ -431,7 +438,7 @@ inherited ViewFormasPGTO: TViewFormasPGTO
         Flat = True
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
-        Font.Height = -12
+        Font.Height = -11
         Font.Name = 'Tahoma'
         Font.Style = [fsBold]
         ParentFont = False
@@ -442,17 +449,17 @@ inherited ViewFormasPGTO: TViewFormasPGTO
       end
     end
     object edtValorParaFaturar: TEdit
-      Left = 193
-      Top = 55
+      Left = 185
+      Top = 39
       Width = 112
       Height = 33
       Alignment = taRightJustify
       BevelInner = bvNone
       BevelOuter = bvNone
       BorderStyle = bsNone
-      Color = clMedGray
+      Color = clBtnFace
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWhite
+      Font.Color = 6302000
       Font.Height = -33
       Font.Name = 'System'
       Font.Style = []
@@ -474,8 +481,8 @@ inherited ViewFormasPGTO: TViewFormasPGTO
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 651
-    Top = 189
+    Left = 475
+    Top = 349
     object FDMemTable_formasPGTOID_FORMAPGTO: TIntegerField
       FieldName = 'ID_FORMAPGTO'
     end
@@ -496,8 +503,8 @@ inherited ViewFormasPGTO: TViewFormasPGTO
   end
   object dsFormasPGTOescolha: TDataSource
     DataSet = FDMemTable_formasPGTO
-    Left = 651
-    Top = 125
+    Left = 331
+    Top = 349
   end
   object FDMemTable_itensVenda: TFDMemTable
     FetchOptions.AssignedValues = [evMode]
@@ -507,8 +514,8 @@ inherited ViewFormasPGTO: TViewFormasPGTO
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 654
-    Top = 293
+    Left = 662
+    Top = 349
     object FDMemTable_itensVendaCOD_ITEM: TIntegerField
       FieldName = 'COD_ITEM'
     end

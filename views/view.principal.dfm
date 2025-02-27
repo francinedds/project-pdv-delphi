@@ -1169,11 +1169,43 @@ object ViewPrincipal: TViewPrincipal
   object dsItens: TDataSource
     DataSet = FDMemTable_itens
     Left = 1026
-    Top = 277
+    Top = 213
   end
   object FDMemTable_itens: TFDMemTable
+    Active = True
     AfterPost = FDMemTable_itensAfterPost
     AfterDelete = FDMemTable_itensAfterDelete
+    FieldDefs = <
+      item
+        Name = 'COD_ITEM'
+        DataType = ftAutoInc
+      end
+      item
+        Name = 'NOME_PRODUTO'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'QTD_PRODUTO'
+        DataType = ftCurrency
+        Precision = 19
+      end
+      item
+        Name = 'VLR_UNITARIO'
+        DataType = ftCurrency
+        Precision = 19
+      end
+      item
+        Name = 'VLR_DESCONTO'
+        DataType = ftCurrency
+        Precision = 19
+      end
+      item
+        Name = 'VLR_TOTAL'
+        DataType = ftCurrency
+        Precision = 19
+      end>
+    IndexDefs = <>
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     ResourceOptions.AssignedValues = [rvSilentMode]
@@ -1181,8 +1213,9 @@ object ViewPrincipal: TViewPrincipal
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
     Left = 1026
-    Top = 349
+    Top = 277
     object FDMemTable_itensCOD_ITEM: TIntegerField
       FieldName = 'COD_ITEM'
     end
@@ -1206,11 +1239,11 @@ object ViewPrincipal: TViewPrincipal
   object Timer: TTimer
     OnTimer = TimerTimer
     Left = 1026
-    Top = 421
+    Top = 373
   end
   object PopupMenu: TPopupMenu
     Left = 1026
-    Top = 493
+    Top = 461
     object Deletaritem1: TMenuItem
       Caption = 'Deletar'
       OnClick = Deletaritem1Click

@@ -1,17 +1,18 @@
-inherited ServiceCadastro: TServiceCadastro
+﻿inherited ServiceCadastro: TServiceCadastro
+  OnCreate = DataModuleCreate
   Height = 841
-  Width = 329
+  Width = 561
   inherited FDConnection: TFDConnection
     Left = 72
     Top = 40
   end
   inherited WaitCursor: TFDGUIxWaitCursor
     Left = 72
-    Top = 136
+    Top = 120
   end
   inherited DriverLink: TFDPhysFBDriverLink
     Left = 72
-    Top = 216
+    Top = 200
   end
   object FDQuery_abrecaixa: TFDQuery
     Active = True
@@ -19,7 +20,7 @@ inherited ServiceCadastro: TServiceCadastro
     SQL.Strings = (
       'select * from abrecaixa where abr_status = '#39'ABERTO'#39)
     Left = 72
-    Top = 416
+    Top = 448
     object FDQuery_abrecaixaABR_CODIGO: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'ABR_CODIGO'
@@ -84,7 +85,7 @@ inherited ServiceCadastro: TServiceCadastro
         'o)'
       'where produtos1.pr1_codigobarra = :codBarra')
     Left = 72
-    Top = 504
+    Top = 536
     ParamData = <
       item
         Name = 'CODBARRA'
@@ -127,11 +128,12 @@ inherited ServiceCadastro: TServiceCadastro
     end
   end
   object FDQuery_venda: TFDQuery
+    Active = True
     Connection = FDConnection
     SQL.Strings = (
       'select * from movestoque where mov_codigo = :codigo')
     Left = 72
-    Top = 632
+    Top = 664
     ParamData = <
       item
         Name = 'CODIGO'
@@ -182,11 +184,12 @@ inherited ServiceCadastro: TServiceCadastro
     end
   end
   object FDQuery_venda_item: TFDQuery
+    Active = True
     Connection = FDConnection
     SQL.Strings = (
       'select * from movestoque_item where mvi_codigo = :codigo')
     Left = 72
-    Top = 712
+    Top = 744
     ParamData = <
       item
         Name = 'CODIGO'
@@ -243,7 +246,7 @@ inherited ServiceCadastro: TServiceCadastro
     SQL.Strings = (
       'select * from formaspagamento order by for_codigo')
     Left = 224
-    Top = 416
+    Top = 448
     object FDQuery_formasPGTOFOR_CODIGO: TIntegerField
       AutoGenerateValue = arAutoInc
       FieldName = 'FOR_CODIGO'
@@ -267,7 +270,7 @@ inherited ServiceCadastro: TServiceCadastro
     SQL.Strings = (
       'select * from caixa where cai_codigo = :codigo')
     Left = 224
-    Top = 504
+    Top = 536
     ParamData = <
       item
         Name = 'CODIGO'
@@ -315,7 +318,7 @@ inherited ServiceCadastro: TServiceCadastro
     SQL.Strings = (
       'select * from receber1 where rc1_codigo = :codigo')
     Left = 224
-    Top = 632
+    Top = 664
     ParamData = <
       item
         Name = 'CODIGO'
@@ -351,7 +354,7 @@ inherited ServiceCadastro: TServiceCadastro
     SQL.Strings = (
       'select * from receber2 where rc2_codigo = :codigo')
     Left = 224
-    Top = 712
+    Top = 744
     ParamData = <
       item
         Name = 'CODIGO'
@@ -401,5 +404,488 @@ inherited ServiceCadastro: TServiceCadastro
       Precision = 18
       Size = 2
     end
+  end
+  object frxReport: TfrxReport
+    Version = '6.9.14'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Padr'#227'o'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 45713.578968750000000000
+    ReportOptions.LastChange = 45715.635334849540000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 464
+    Top = 536
+    Datasets = <
+      item
+        DataSet = frxDBDataset_filial
+        DataSetName = 'frxDBDataset_filial'
+      end
+      item
+        DataSet = frxDBDataset_venda
+        DataSetName = 'frxDBDataset_venda'
+      end
+      item
+        DataSet = frxDBDataset_vendaItem
+        DataSetName = 'frxDBDataset_vendaItem'
+      end>
+    Variables = <>
+    Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
+    object Page1: TfrxReportPage
+      PaperWidth = 210.000000000000000000
+      PaperHeight = 297.000000000000000000
+      PaperSize = 9
+      LeftMargin = 10.000000000000000000
+      RightMargin = 10.000000000000000000
+      TopMargin = 10.000000000000000000
+      BottomMargin = 10.000000000000000000
+      Frame.Typ = []
+      MirrorMode = []
+      object Relatório: TfrxReportTitle
+        FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Arial'
+        Font.Style = []
+        Height = 134.283550000000000000
+        ParentFont = False
+        Top = 18.897650000000000000
+        Width = 718.110700000000000000
+        object frxDBDataset_filialFIL_CODIGO: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 3.779530000000000000
+          Top = 7.559060000000000000
+          Width = 714.331170000000000000
+          Height = 18.897650000000000000
+          DataSet = frxDBDataset_filial
+          DataSetName = 'frxDBDataset_filial'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              '[frxDBDataset_filial."FIL_CODIGO"] - [frxDBDataset_filial."FIL_R' +
+              'AZAO"]')
+          ParentFont = False
+        end
+        object frxDBDataset_filialFIL_TELEFONE: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 3.779530000000000000
+          Top = 68.031540000000000000
+          Width = 400.630180000000000000
+          Height = 18.897650000000000000
+          DataSet = frxDBDataset_filial
+          DataSetName = 'frxDBDataset_filial'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Telefone: [frxDBDataset_filial."FIL_TELEFONE"]')
+          ParentFont = False
+        end
+        object frxDBDataset_filialFIL_CNPJ: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 3.779530000000000000
+          Top = 37.795300000000000000
+          Width = 400.630180000000000000
+          Height = 18.897650000000000000
+          DataSet = frxDBDataset_filial
+          DataSetName = 'frxDBDataset_filial'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = []
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'CNPJ: [frxDBDataset_filial."FIL_CNPJ"]')
+          ParentFont = False
+        end
+        object frxDBDataset_vendaMOV_DATA: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 3.779530000000000000
+          Top = 102.047310000000000000
+          Width = 110.267780000000000000
+          Height = 18.897650000000000000
+          DataSet = frxDBDataset_venda
+          DataSetName = 'frxDBDataset_venda'
+          DisplayFormat.FormatStr = 'dd/mm/yyyy'
+          DisplayFormat.Kind = fkDateTime
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Data Venda: [frxDBDataset_venda."MOV_DATA"]')
+          ParentFont = False
+        end
+        object frxDBDataset_vendaMOV_HORA: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 276.771800000000000000
+          Top = 102.047310000000000000
+          Width = 99.826840000000000000
+          Height = 18.897650000000000000
+          DataSet = frxDBDataset_venda
+          DataSetName = 'frxDBDataset_venda'
+          DisplayFormat.FormatStr = 'hh:mm:ss'
+          DisplayFormat.Kind = fkDateTime
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Hora Venda: [frxDBDataset_venda."MOV_HORA"]')
+          ParentFont = False
+        end
+        object frxDBDataset_vendaMOV_CODIGO: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 547.645950000000000000
+          Top = 102.047310000000000000
+          Width = 105.519790000000000000
+          Height = 18.897650000000000000
+          DataSet = frxDBDataset_venda
+          DataSetName = 'frxDBDataset_venda'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'N'#250'm. Venda: [frxDBDataset_venda."MOV_CODIGO"]')
+          ParentFont = False
+        end
+      end
+      object MasterData1: TfrxMasterData
+        FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
+        Height = 38.677180000000000000
+        Top = 260.787570000000000000
+        Width = 718.110700000000000000
+        DataSet = frxDBDataset_vendaItem
+        DataSetName = 'frxDBDataset_vendaItem'
+        RowCount = 0
+        object frxDBDataset_vendaItemMVI_CODITEM: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 5.000000000000000000
+          Top = 12.566790000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          DataField = 'MVI_CODITEM'
+          DataSet = frxDBDataset_vendaItem
+          DataSetName = 'frxDBDataset_vendaItem'
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset_vendaItem."MVI_CODITEM"]')
+        end
+        object frxDBDataset_vendaItemMVI_QUANTIDADE: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 459.000000000000000000
+          Top = 12.566790000000000000
+          Width = 66.181200000000000000
+          Height = 18.897650000000000000
+          DataSet = frxDBDataset_vendaItem
+          DataSetName = 'frxDBDataset_vendaItem'
+          DisplayFormat.FormatStr = '%g'
+          DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset_vendaItem."MVI_QUANTIDADE"]')
+        end
+        object frxDBDataset_vendaItemMVI_VLRUNITARIO: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 550.000000000000000000
+          Top = 12.566790000000000000
+          Width = 56.181200000000000000
+          Height = 18.897650000000000000
+          DataSet = frxDBDataset_vendaItem
+          DataSetName = 'frxDBDataset_vendaItem'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset_vendaItem."MVI_VLRUNITARIO"]')
+        end
+        object frxDBDataset_vendaItemMVI_VLRTOTAL: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 633.000000000000000000
+          Top = 12.566790000000000000
+          Width = 65.181200000000000000
+          Height = 18.897650000000000000
+          DataSet = frxDBDataset_vendaItem
+          DataSetName = 'frxDBDataset_vendaItem'
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Frame.Typ = []
+          Memo.UTF8W = (
+            '[frxDBDataset_vendaItem."MVI_VLRTOTAL"]')
+        end
+      end
+      object Header1: TfrxHeader
+        FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
+        Height = 22.677180000000000000
+        Top = 215.433210000000000000
+        Width = 718.110700000000000000
+        object Memo1: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 6.000000000000000000
+          Top = 1.566790000000000000
+          Width = 70.370130000000000000
+          Height = 18.897650000000000000
+          DataSet = frxDBDataset_vendaItem
+          DataSetName = 'frxDBDataset_vendaItem'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'C'#243'digo')
+          ParentFont = False
+        end
+        object Memo2: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 99.000000000000000000
+          Top = 1.566790000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          DataSet = frxDBDataset_vendaItem
+          DataSetName = 'frxDBDataset_vendaItem'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Produto')
+          ParentFont = False
+        end
+        object Memo3: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 450.000000000000000000
+          Top = 1.566790000000000000
+          Width = 79.370130000000000000
+          Height = 18.897650000000000000
+          DataSet = frxDBDataset_vendaItem
+          DataSetName = 'frxDBDataset_vendaItem'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Quantidade')
+          ParentFont = False
+        end
+        object Memo4: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 541.000000000000000000
+          Top = 1.566790000000000000
+          Width = 85.370130000000000000
+          Height = 18.897650000000000000
+          DataSet = frxDBDataset_vendaItem
+          DataSetName = 'frxDBDataset_vendaItem'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Vlr. Unit'#225'rio')
+          ParentFont = False
+        end
+        object Memo5: TfrxMemoView
+          IndexTag = 1
+          AllowVectorExport = True
+          Left = 635.000000000000000000
+          Top = 1.566790000000000000
+          Width = 64.370130000000000000
+          Height = 18.897650000000000000
+          DataSet = frxDBDataset_vendaItem
+          DataSetName = 'frxDBDataset_vendaItem'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            'Vlr Total')
+          ParentFont = False
+        end
+      end
+      object Footer1: TfrxFooter
+        FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
+        Frame.Typ = []
+        Height = 24.677180000000000000
+        Top = 321.260050000000000000
+        Width = 718.110700000000000000
+        object Memo6: TfrxMemoView
+          AllowVectorExport = True
+          Left = 530.000000000000000000
+          Top = 1.180890000000000000
+          Width = 183.488250000000000000
+          Height = 18.897650000000000000
+          DisplayFormat.FormatStr = '%2.2m'
+          DisplayFormat.Kind = fkNumeric
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          Frame.Typ = []
+          Memo.UTF8W = (
+            
+              'Total da Venda: [SUM(<frxDBDataset_vendaItem."MVI_VLRTOTAL">,Mas' +
+              'terData1)]')
+          ParentFont = False
+        end
+      end
+    end
+  end
+  object frxDBDataset_venda: TfrxDBDataset
+    UserName = 'frxDBDataset_venda'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'MOV_CODIGO=MOV_CODIGO'
+      'MOV_TIPOESTOQUE=MOV_TIPOESTOQUE'
+      'MOV_DATA=MOV_DATA'
+      'MOV_HORA=MOV_HORA'
+      'MOV_VLRDESCONTO=MOV_VLRDESCONTO'
+      'MOV_VLRTOTAL=MOV_VLRTOTAL'
+      'MOV_VENDEDOR=MOV_VENDEDOR'
+      'MOV_CLIENTE=MOV_CLIENTE')
+    DataSet = FDQuery_venda
+    BCDToCurrency = False
+    Left = 464
+    Top = 600
+  end
+  object frxDBDataset_vendaItem: TfrxDBDataset
+    UserName = 'frxDBDataset_vendaItem'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'MVI_CODIGO=MVI_CODIGO'
+      'MVI_CODIGOMOVESTOQUE=MVI_CODIGOMOVESTOQUE'
+      'MVI_CODITEM=MVI_CODITEM'
+      'MVI_QUANTIDADE=MVI_QUANTIDADE'
+      'MVI_VLRUNITARIO=MVI_VLRUNITARIO'
+      'MVI_VLRTOTAL=MVI_VLRTOTAL'
+      'MVI_VLRDESCONTO=MVI_VLRDESCONTO')
+    DataSet = FDQuery_venda_item
+    BCDToCurrency = False
+    Left = 464
+    Top = 664
+  end
+  object FDQuery_filial: TFDQuery
+    Active = True
+    Connection = FDConnection
+    SQL.Strings = (
+      'select * from filial where fil_codigo = :codigo')
+    Left = 72
+    Top = 344
+    ParamData = <
+      item
+        Name = 'CODIGO'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+    object FDQuery_filialFIL_CODIGO: TIntegerField
+      FieldName = 'FIL_CODIGO'
+      Origin = 'FIL_CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object FDQuery_filialFIL_RAZAO: TStringField
+      FieldName = 'FIL_RAZAO'
+      Origin = 'FIL_RAZAO'
+      Size = 100
+    end
+    object FDQuery_filialFIL_FANTASIA: TStringField
+      FieldName = 'FIL_FANTASIA'
+      Origin = 'FIL_FANTASIA'
+      Size = 100
+    end
+    object FDQuery_filialFIL_CNPJ: TStringField
+      FieldName = 'FIL_CNPJ'
+      Origin = 'FIL_CNPJ'
+      Size = 50
+    end
+    object FDQuery_filialFIL_TELEFONE: TStringField
+      FieldName = 'FIL_TELEFONE'
+      Origin = 'FIL_TELEFONE'
+      Size = 50
+    end
+  end
+  object frxDBDataset_filial: TfrxDBDataset
+    UserName = 'frxDBDataset_filial'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'FIL_CODIGO=FIL_CODIGO'
+      'FIL_RAZAO=FIL_RAZAO'
+      'FIL_FANTASIA=FIL_FANTASIA'
+      'FIL_CNPJ=FIL_CNPJ'
+      'FIL_TELEFONE=FIL_TELEFONE')
+    DataSet = FDQuery_filial
+    BCDToCurrency = False
+    Left = 464
+    Top = 728
   end
 end

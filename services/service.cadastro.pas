@@ -9,7 +9,7 @@ uses
   FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, FireDAC.Phys.IBBase,
   FireDAC.Comp.UI, Data.DB, FireDAC.Comp.Client, FireDAC.Stan.Param,
   FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet, vcl.Dialogs,
-  provider.conversao;
+  provider.conversao, frxClass, frxDBSet;
 
 type
   TServiceCadastro = class(TServiceConexao)
@@ -73,11 +73,22 @@ type
     FDQuery_receber2RC2_VENCIMENTO: TDateField;
     FDQuery_receber2RC2_VALORHAVER: TFMTBCDField;
     FDQuery_receber2RC2_VALORSALDO: TFMTBCDField;
+    frxReport: TfrxReport;
+    frxDBDataset_venda: TfrxDBDataset;
+    frxDBDataset_vendaItem: TfrxDBDataset;
+    FDQuery_filial: TFDQuery;
+    FDQuery_filialFIL_CODIGO: TIntegerField;
+    FDQuery_filialFIL_RAZAO: TStringField;
+    FDQuery_filialFIL_FANTASIA: TStringField;
+    FDQuery_filialFIL_CNPJ: TStringField;
+    FDQuery_filialFIL_TELEFONE: TStringField;
+    frxDBDataset_filial: TfrxDBDataset;
     procedure Get_Caixa;
     procedure Get_Produtos(AValue: string);
     procedure Put_Caixa(tipo, descricao: string; valor: double; idformaPGTO, idVenda: integer);
     procedure Put_Venda(ADataSet: TDataSet; TipoEstoque, Vendedor, Cliente: integer; ValorVenda, Desconto: double);
     procedure Put_Receber(ADocto: string; id_cliente: integer; ValorDocto: double);
+    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -98,20 +109,27 @@ implementation
 
 { TServiceCadastro }
 
+procedure TServiceCadastro.DataModuleCreate(Sender: TObject);
+begin // carrega a filial
+  inherited;
+  FDQuery_filial.Close;
+  FDQuery_filial.Params[0].AsInteger := 1;
+  FDQuery_filial.Open();
+end;
 
 procedure TServiceCadastro.Get_Caixa;
 begin
-  ServiceCadastro.FDQuery_abrecaixa.Close;
-  ServiceCadastro.FDQuery_abrecaixa.SQL.Clear;
-  ServiceCadastro.FDQuery_abrecaixa.SQL.Add('select * from abrecaixa');
-  ServiceCadastro.FDQuery_abrecaixa.Open();
+  FDQuery_abrecaixa.Close;
+  FDQuery_abrecaixa.SQL.Clear;
+  FDQuery_abrecaixa.SQL.Add('select * from abrecaixa');
+  FDQuery_abrecaixa.Open();
 end;
 
 procedure TServiceCadastro.Get_Produtos(AValue: string);
 begin
-  ServiceCadastro.FDQuery_produtos.Close;
-  ServiceCadastro.FDQuery_produtos.Params[0].AsString := AValue;
-  ServiceCadastro.FDQuery_produtos.Open();
+  FDQuery_produtos.Close;
+  FDQuery_produtos.Params[0].AsString := AValue;
+  FDQuery_produtos.Open();
 
   if FDQuery_produtos.RecordCount < 1 then
   begin
@@ -124,16 +142,16 @@ end;
 
 procedure TServiceCadastro.Put_Caixa(tipo, descricao: string; valor: double; idformaPGTO, idVenda: integer);
 begin // salva caixa
-  ServiceCadastro.FDQuery_cadCaixa.Close;
-  ServiceCadastro.FDQuery_cadCaixa.Open();
-  ServiceCadastro.FDQuery_cadCaixa.Insert;
-  ServiceCadastro.FDQuery_cadCaixaCAI_DATAHORA.AsDateTime   := Now;
-  ServiceCadastro.FDQuery_cadCaixaCAI_TIPO.AsString         := tipo;
-  ServiceCadastro.FDQuery_cadCaixaCAI_VALOR.AsFloat         := valor;
-  ServiceCadastro.FDQuery_cadCaixaCAI_DESCRICAO.AsString    := descricao;
-  ServiceCadastro.FDQuery_cadCaixaCAI_IDFORMAPGTO.AsInteger := idformaPGTO;
-  ServiceCadastro.FDQuery_cadCaixaCAI_IDVENDA.AsInteger     := idVenda;
-  ServiceCadastro.FDQuery_cadCaixa.Post;
+  FDQuery_cadCaixa.Close;
+  FDQuery_cadCaixa.Open();
+  FDQuery_cadCaixa.Insert;
+  FDQuery_cadCaixaCAI_DATAHORA.AsDateTime   := Now;
+  FDQuery_cadCaixaCAI_TIPO.AsString         := tipo;
+  FDQuery_cadCaixaCAI_VALOR.AsFloat         := valor;
+  FDQuery_cadCaixaCAI_DESCRICAO.AsString    := descricao;
+  FDQuery_cadCaixaCAI_IDFORMAPGTO.AsInteger := idformaPGTO;
+  FDQuery_cadCaixaCAI_IDVENDA.AsInteger     := idVenda;
+  FDQuery_cadCaixa.Post;
 end;
 
 procedure TServiceCadastro.Put_Receber(ADocto: string; id_cliente: integer;
@@ -184,8 +202,9 @@ begin // salva venda
     FDQuery_venda_itemMVI_CODITEM.AsInteger          := ADataSet.FieldByName('cod_item').AsInteger;
     FDQuery_venda_itemMVI_QUANTIDADE.AsFloat         := ADataSet.FieldByName('qtd_produto').AsFloat;
     FDQuery_venda_itemMVI_VLRUNITARIO.AsFloat        := ADataSet.FieldByName('vlr_unitario').AsFloat;
-    FDQuery_venda_itemMVI_VLRTOTAL.AsFloat           := ADataSet.FieldByName('vlr_desconto').AsFloat;
-    FDQuery_venda_itemMVI_VLRDESCONTO.AsFloat        := ADataSet.FieldByName('vlr_total').AsFloat;
+    FDQuery_venda_itemMVI_VLRTOTAL.AsFloat           := ADataSet.FieldByName('vlr_total').AsFloat;
+    FDQuery_venda_itemMVI_VLRDESCONTO.AsFloat        := ADataSet.FieldByName('vlr_desconto').AsFloat;
+    FDQuery_venda_item.Post;
 
     ADataSet.Next;
 
